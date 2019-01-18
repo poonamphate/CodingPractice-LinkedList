@@ -1,0 +1,61 @@
+https://www.geeksforgeeks.org/write-a-function-to-get-nth-node-in-a-linked-list/
+
+public class LinkedList {
+	Node head;
+	
+	static class Node{
+		int data;
+		Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void print(Node head) {
+		
+		if(head == null) {
+			return;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null");
+	}
+	
+	public int findNthNode(Node head, int index) {
+		if(head == null) {
+			return -1;
+		}
+		
+		Node temp = head;
+		int count = 0;
+		
+		while(temp!=null) {
+			if(count == index) {
+				return temp.data;
+			}
+			count++;
+			temp = temp.next;
+		}
+		
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(1);
+		 Node two = new Node(10);
+		 Node three = new Node(30);
+		 Node four = new Node(14);
+		 
+		 list.head.next = two;
+		 two.next = three;
+		 three.next = four;
+		 
+		 list.print(list.head);
+		 System.out.print("\nNode at index 3 is = "+list.findNthNode(list.head, 3));
+	}
+}
