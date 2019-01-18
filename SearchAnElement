@@ -1,0 +1,71 @@
+//https://www.geeksforgeeks.org/search-an-element-in-a-linked-list-iterative-and-recursive/
+
+public class LinkedList {
+	Node head;
+	
+	static class Node{
+		int data;
+		Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void print(Node head) {
+		
+		if(head == null) {
+			return;
+		}
+		Node temp = head;
+		while(temp!=null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null");
+	}
+	
+	public boolean findElement_Iteratively(Node head, int data) {
+		if(head == null) {
+			return false;
+		}
+		Node temp = head;
+		while(temp != null) {
+			if(temp.data == data) {
+				return true;
+			}
+			temp = temp.next;
+		}
+		
+		return false;
+	}
+	
+	public boolean findElement_Recursively(Node head, int data) {
+		if(head == null) {
+			return false;
+		}
+		
+		if(head.data == data) {
+			return true;
+		}
+		
+		return findElement_Recursively(head.next, data);
+	}
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(12);
+		 Node two = new Node(21);
+		 Node three = new Node(32);
+		 Node four = new Node(41);
+		 
+		 list.head.next = two;
+		 two.next = three;
+		 three.next = four;
+		 
+		 list.print(list.head);
+		 System.out.print("\n"+list.findElement_Iteratively(list.head, 41));
+		 System.out.print("\n"+list.findElement_Recursively(list.head, 40));
+		 
+	}
+}
