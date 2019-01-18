@@ -1,0 +1,63 @@
+//https://www.geeksforgeeks.org/delete-a-linked-list-node-at-a-given-position/
+
+class LinkedList{
+	 Node head;
+	
+	 static class Node{
+			Node next;
+			int data;
+			
+			Node(int data){
+				this.data = data;
+			}
+		}
+	
+	public void print(Node head) {
+		Node temp = head;
+		while(temp != null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null\n");
+	}
+	
+	public void deleteNode(int index) {
+		if(head == null) {
+			return;
+		}
+		
+		if(head != null && index == 0) {
+			head = head.next;
+			return;
+		}
+		
+		Node temp = head;
+		
+		for(int i = 0; temp!=null && i < index-1; i++) {
+			temp = temp.next;
+			//System.out.println("temp.data = "+temp.data);
+		}
+		
+		if(temp == null || temp.next == null) {
+			return;
+		}
+		Node Next = temp.next.next;
+		temp.next = Next;
+	}
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(1);
+		Node two = new Node(2);
+		Node three = new Node(3);
+		Node four = new Node(4);
+		
+		list.head.next = two;
+		two.next = three;
+		three.next = four;
+		
+		list.print(list.head);
+		list.deleteNode(3);
+		list.print(list.head);
+	}
+}
