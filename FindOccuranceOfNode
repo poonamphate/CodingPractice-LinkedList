@@ -1,0 +1,84 @@
+//https://www.geeksforgeeks.org/write-a-function-that-counts-the-number-of-times-a-given-int-occurs-in-a-linked-list/
+	
+/*Given a singly linked list and a key, count number of occurrences of given key in linked list. 
+ * For example, 
+ * if given linked list is 1->2->1->2->1->3->1 and given key is 1, then output should be 4.*/
+	
+public class LinkedList {
+	Node head;
+	
+	static class Node{
+		int data;
+		Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void print(Node head) {
+		if(head == null) {
+			return;
+		}
+		
+		Node temp = head;
+		while(temp != null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null");
+	}
+	
+	public int findOccurence(int num) {
+		if(head == null) {
+			return 0;
+		}
+		
+		Node temp = head;
+		int count = 0;
+		while(temp!=null) {
+			if(temp.data == num) {
+				count++;
+			}
+			temp = temp.next;
+		}
+		
+		return count;
+	}
+	
+	public int findOccurenceRecursion(Node node, int num) {
+		if(node == null) {
+			return 0;
+		}
+		
+		if(node.data == num) {
+			return 1+findOccurenceRecursion(node.next, num);
+		}
+		
+			return findOccurenceRecursion(node.next, num);
+	}
+	
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(1);
+		Node two = new Node(2);
+		Node three = new Node(1);
+		Node four = new Node(2);
+		Node five = new Node(1);
+		Node six = new Node(3);
+		Node seven = new Node(1);
+		
+		list.head.next = two;
+		two.next = three;
+		three.next = four;
+		four.next = five;
+		five.next = six;
+		six.next = seven;
+		
+		list.print(list.head);
+		
+		System.out.println("\nlist.findOccurence(2) = "+list.findOccurence(2));
+		System.out.println("findOccurenceRecursion = "+list.findOccurenceRecursion(list.head, 5));
+	}
+}
