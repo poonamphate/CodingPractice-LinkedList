@@ -1,0 +1,58 @@
+//https://www.geeksforgeeks.org/write-a-c-function-to-print-the-middle-of-the-linked-list/
+//Given a singly linked list, find middle of the linked list. 
+//For example, if given linked list is 1->2->3->4->5 then output should be 3.
+public class LinkedList {
+	Node head;
+	
+	static class Node{
+		int data;
+		Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void print(Node head) {
+		if(head == null) {
+			return;
+		}
+		
+		Node temp = head;
+		while(temp != null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null");
+	}
+	
+	public void findMiddleNode() {
+		if(head == null) {
+			return;
+		}
+		Node slow_ptr = head;
+		Node fast_ptr = head;
+		
+		while(fast_ptr != null && fast_ptr.next != null) {
+			fast_ptr = fast_ptr.next.next;
+			slow_ptr = slow_ptr.next;
+		}
+		System.out.println("\nmiddle node of LinkedList is = "+slow_ptr.data);
+	}
+	
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(1);
+		Node two = new Node(2);
+		Node three = new Node(3);
+		Node four = new Node(4);
+		
+		list.head.next = two;
+		two.next = three;
+		three.next = four;
+		
+		list.print(list.head);
+		list.findMiddleNode();
+	}
+}
