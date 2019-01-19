@@ -1,0 +1,95 @@
+//Given a Linked List and a number n, write a function that returns the value at the n’th node from end of the Linked List.
+public class LinkedList {
+	Node head;
+	
+	static class Node{
+		int data;
+		Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void print(Node head) {
+		if(head == null) {
+			return;
+		}
+		
+		Node temp = head;
+		while(temp != null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null");
+	}
+	
+	public void FindNthNodeFromEnd(int index) {
+		if(head == null) {
+			return;
+		}
+		
+		if(index <= 0) {
+			System.out.println("\ninvalid index");
+			return;
+		}
+		
+		Node temp = head;
+		int length = 0;
+		while(temp != null) {
+			length++;
+			temp = temp.next;
+		}
+		
+		if(index > length) {
+			System.out.println("\nindex greater than length");
+			return;
+		}
+		temp = head;
+		for(int i = 0; i < length-index; i++) {
+			temp = temp.next;
+		}
+		
+		System.out.println("\n"+temp.data);
+	}
+	
+	//two pointer approach
+  void printNthFromLast(int n) 
+    { 
+       Node main_ptr = head;
+       Node ref_ptr = head;
+       int count = 0;
+       
+    	   while(count < n) {
+    		   count++;
+    		   ref_ptr = ref_ptr.next;
+    	   }
+       
+       
+       if(ref_ptr == null) {
+    	   System.out.println("index is greater than length of LinkedList");
+       }
+       
+       while(ref_ptr != null) {
+    	   ref_ptr = ref_ptr.next;
+    	   main_ptr = main_ptr.next;
+       }
+       System.out.println("\nNode at index "+n+" from last is = "+main_ptr.data);
+    } 
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(1);
+		Node two = new Node(2);
+		Node three = new Node(3);
+		Node four = new Node(4);
+		
+		list.head.next = two;
+		two.next = three;
+		three.next = four;
+		
+		list.print(list.head);
+		list.FindNthNodeFromEnd(2);
+		list.printNthFromLast(2);
+	}
+}
