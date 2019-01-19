@@ -24,7 +24,7 @@ public class LinkedList {
 		System.out.print("null");
 	}
 	
-	public void FindNthNodeFromEnd(int index) {
+	public void findNthNodeFromEnd(int index) {
 		if(head == null) {
 			return;
 		}
@@ -89,7 +89,7 @@ public class LinkedList {
 		three.next = four;
 		
 		list.print(list.head);
-		list.FindNthNodeFromEnd(2);
+		list.findNthNodeFromEnd(2);
 		list.printNthFromLast(2);
 	}
 }
