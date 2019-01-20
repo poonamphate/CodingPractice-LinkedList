@@ -1,0 +1,87 @@
+//https://www.geeksforgeeks.org/find-length-of-loop-in-linked-list/
+/*Write a function detectAndCountLoop() that checks whether a given Linked List contains loop and if loop is present then returns count of nodes in loop.
+ * For example, 
+ * loop is present in below linked list and length of loop is 4. If loop is not present, then function should return 0.*/
+
+public class LinkedList {
+	Node head;
+	
+	static class Node{
+		int data;
+		Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void print(Node head) {
+		if(head == null) {
+			return;
+		}
+		
+		Node temp = head;
+		while(temp != null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null");
+	}
+	
+	public int findLengthOfLoop() {
+		if(head == null) {
+			return 0;
+		}
+		
+		Node slow_ptr = head;
+		Node fast_ptr = head;
+		
+		while(slow_ptr != null && fast_ptr != null) {
+			fast_ptr = fast_ptr.next.next;
+			slow_ptr = slow_ptr.next;
+			
+//			System.out.println("fast_ptr == "+fast_ptr.data);
+//			System.out.println("slow_ptr == "+slow_ptr.data);
+			
+			if(slow_ptr == fast_ptr) {
+				return countNodes(slow_ptr);
+			}
+		}
+		
+		return 0;
+	}
+	
+	static int countNodes(Node node) {
+		int  count = 1;
+		Node temp = node;
+		
+		while(temp.next != node) {
+			count++;
+			temp = temp.next;
+		}
+		
+		return count;
+	}
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(1);
+		Node two = new Node(2);
+		Node three = new Node(3);
+		Node four = new Node(4);
+		Node five = new Node(5);
+		
+		
+		list.head.next = two;
+		two.next = three;
+		three.next = four;
+		four.next = five;
+		five.next = three;
+		
+//		list.print(list.head);
+		
+		System.out.println("Length of loop is : "+list.findLengthOfLoop());
+		
+
+	}
+}
