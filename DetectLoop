@@ -1,0 +1,89 @@
+//https://www.geeksforgeeks.org/detect-loop-in-a-linked-list/
+
+import java.util.HashSet;
+	
+public class LinkedList {
+	Node head;
+	
+	static class Node{
+		int data;
+		Node next;
+		
+		Node(int data){
+			this.data = data;
+		}
+	}
+	
+	public void print(Node head) {
+		if(head == null) {
+			return;
+		}
+		
+		Node temp = head;
+		while(temp != null) {
+			System.out.print(temp.data+"-->");
+			temp = temp.next;
+		}
+		System.out.print("null");
+	}
+	
+	public boolean detectLoop() {
+		if(head == null) {
+			return false;
+		}
+		
+		Node slow_ptr = head;
+		Node fast_ptr = head;
+		
+		while(fast_ptr != null && slow_ptr!= null ) {
+			fast_ptr = fast_ptr.next.next;
+			slow_ptr = slow_ptr.next;
+			
+			if(fast_ptr == slow_ptr) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean detectLoopUsingHashing(){
+		if(head == null) {
+			return false;
+		}
+		
+		HashSet<Node> set = new HashSet<>();
+		
+		Node temp = head;
+		while(temp != null) {
+			if(set.contains(temp)) {
+				return true;
+			}
+			set.add(temp);
+			temp = temp.next;
+		}
+		
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.head = new Node(1);
+		Node two = new Node(2);
+		Node three = new Node(1);
+		Node four = new Node(2);
+		Node five = new Node(1);
+		
+		
+		list.head.next = two;
+		two.next = three;
+		three.next = four;
+		four.next = five;
+		five.next = three;
+		
+//		list.print(list.head);
+		
+		System.out.println("LinkedList has a loop? : "+list.detectLoop());
+		System.out.println("LinkedList has a loop? : "+list.detectLoopUsingHashing());
+
+	}
+}
